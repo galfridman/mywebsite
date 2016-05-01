@@ -1,0 +1,84 @@
+{% extends "BaseApp/mybase.html" %}
+{% block content %}
+{% load staticfiles %}
+
+<!-- Main content -->
+<section class="content">
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="nav-tabs-custom">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a href="#about" data-toggle="tab">About</a></li>
+                    <li><a href="#actions" data-toggle="tab">Actions</a></li>
+                    <li><a href="#log" data-toggle="tab">Log</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div class="active tab-pane" id="about">
+                        <div class="box-body box-profile">
+                            <img class="profile-user-img img-responsive img-circle" src="{{ p_business.image.url }}" alt="User profile picture">
+                            <h3 class="profile-username text-center">{{ p_business }}</h3>
+                            <p class="text-muted text-center">Application Business</p>
+
+                            <ul class="list-group list-group-unbordered">
+                                <li class="list-group-item">
+                                    <b>Name</b> <a class="pull-right">{{ p_business.name }}</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>Description</b> <a class="pull-right">{{ p_business.description }}</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>Address</b> <a class="pull-right">{{ p_business.address }}</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>Catagory</b> <a class="pull-right">{{ p_business.category }}</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>Managers</b> {% for m in p_business.managers.all %}<p>&nbsp;<a class="pull-right" href="/user/{{m.user.id}}/" >{{ m }}</a></p>{% endfor %}
+                                </li>
+                                <li class="list-group-item">
+                                    <b>Followers</b> <a class="pull-right">{{ p_business.business_likes.all.count }}</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>Phone numbers</b>
+                                    {% for phone in p_business.phones.all %}
+                                    <p>{{phone.description}}<a class="pull-right">{{ phone.number }}</a></p>
+                                    {% endfor %}
+                                </li>
+                                <li class="list-group-item">
+                                    <b>Facebook page</b> <a href="{{ p_business.name }}" class="pull-right">Link</a>
+                                </li>
+
+
+                            </ul>
+                            {% if user in business.managers.all %}
+                            <a href="#" class="btn btn-primary btn-block"><b>Edit Profile</b></a>
+                            {% endif %}
+                        </div><!-- /.box-body -->
+                    </div><!-- /.tab-pane -->
+                    <div class="tab-pane" id="actions">
+                        <!-- The timeline -->
+                        <a href="#" class="btn btn-block btn-social btn-flat btn-info">
+                            <i class="fa fa-envelope"></i>
+                            Send a message
+                        </a>
+                        <a href="#" class="btn btn-block btn-social btn-flat btn-success">
+                            <i class="fa fa-user-plus"></i>
+                            Invite to follow
+                        </a>
+                        <a href="#" class="btn btn-block btn-social btn-flat btn-danger">
+                            <i class="fa fa-ban"></i>
+                            Remove this user
+                        </a>
+                    </div><!-- /.tab-pane -->
+
+                    <div class="tab-pane" id="log">
+
+                    </div><!-- /.tab-pane -->
+                </div><!-- /.tab-content -->
+            </div><!-- /.nav-tabs-custom -->
+        </div><!-- /.col -->
+    </div><!-- /.row -->
+
+</section><!-- /.content -->
+{% endblock %}

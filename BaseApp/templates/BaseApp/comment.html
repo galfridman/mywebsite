@@ -1,0 +1,12 @@
+{% load staticfiles %}
+<div class='box-comment'>
+    <!-- User image -->
+    <img class='img-circle img-sm' src="{{ c.user.appuser.image.url }}" alt='user image'>
+    <div class='comment-text'>
+                      <span class="username">
+                          <a href="{% url 'user_profile' c.user.id%}">{{ c.user }}</a>
+                        <span class='text-muted pull-right'>{{ c.created_at }}</span>
+                      </span><!-- /.username -->
+        {{ c.text }}
+    </div><!-- /.comment-text -->
+</div><!-- /.box-comment -->
